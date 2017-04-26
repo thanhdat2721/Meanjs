@@ -8,6 +8,7 @@ module.exports = function (app) {
   // Setting up the users profile api
   app.route('/api/users').get(user.list);
   app.route('/api/add').post(user.add);
+  app.route('/api/AcceptOrCancel').post(user.AcceptOrCancel);
   // Setting up the users profile api
   app.route('/api/upload').post(chat.UploadPicture);
 };
