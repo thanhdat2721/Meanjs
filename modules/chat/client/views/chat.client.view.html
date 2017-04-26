@@ -1,0 +1,82 @@
+<!-- The chat view -->
+<section class="container">
+  <div class="page-header">
+    <h1>Chat Example</h1>
+  </div>
+  <div class="modal-demo">
+  <script type="text/ng-template" id="myModalContent.html">
+  <div class="modal-header">
+      <h3 class="modal-title" id="modal-title">I'm a modal!</h3>
+  </div>
+  <div class="modal-body" id="modal-body">
+      <ul>
+          <li ng-repeat="item in $ctrl.items">
+              <a href="#" ng-click="$event.preventDefault(); $ctrl.selected.item = item">{{ item }}</a>
+          </li>
+      </ul>
+      Selected: <b>{{ $ctrl.selected.item }}</b>
+  </div>
+  <div class="modal-footer">
+      <button class="btn btn-primary" type="button" ng-click="vm.ok()">OK</button>
+      <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancel</button>
+  </div>
+</script>
+</div>
+  <div>
+  <div class="notification" data-toggle="modal" ng-click="vm.sumNoti">{{ vm.sumNoti }}</div>
+    <button class="glyphicon glyphicon-bell" ng-click="vm.open()"></button>
+  </div>
+  </li>
+  <!-- The message form -->
+  <form class="col-xs-12 col-md-offset-4 col-md-4" ng-submit="vm.sendMessage();">
+    <fieldset class="row">
+      <div class="input-group">
+        <input type="text" id="messageText" name="messageText" class="form-control" ng-model="vm.messageText" placeholder="Enter new message" >
+
+        <span class="input-group-btn">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </span>
+      </div>
+    </fieldset>
+  </form>
+    <div ng-show="!vm.fileSelected" class="text-center form-group">
+      <button class="btn btn-default btn-file" ngf-select="(vm.fileSelected = true) && (vm.loading = false)" ng-model="picFile" accept="image/*" ngf-before-model-change="vm.loading = true" ngf-resize="{width: 400}" ngf-resize-if="$width > 400 || $height > 400">Select Picture</button>
+    </div>
+    <div ng-show="vm.fileSelected" class="text-center form-group">
+      <button type="submit" class="btn btn-primary" ng-click="vm.upload(picFile)">Use This Picture</button>
+      <button class="btn btn-default" ng-click="vm.fileSelected = false">Cancel</button>
+    </div>
+
+    <!-- <div>
+      <input type="file" class="btn btn-default btn-file" ng-model="picFile">Select Picture</input>
+    </div>
+    <div>
+      <button type="submit" class="btn btn-primary" ng-click="UploadPicture(picFile)">Use This Picture</button>
+      <button class="btn btn-default">Cancel</button>
+    </div>
+    <div ng-show="error" class="text-center text-danger">
+      <strong ng-bind="error"></strong>
+    </div>
+  </form> -->
+  <div class="text-center form-group" ng-hide="uploader.queue.length">
+  </div>
+  <ul class="list-unstyled">
+    <!-- List all messages -->
+    <li class="col-xs-12 col-md-offset-4 col-md-4 chat-message" ng-repeat="message in vm.messages">
+      <small class="pull-right text-muted" ng-bind="message.created | date:'mediumTime'"></small>
+      <img ng-src="/{{message.profileImageURL}}" alt="{{message.username}}" class="pull-left chat-profile-image" />
+      <div class="pull-left chat-message-details">
+        <strong ng-bind="message.username"></strong>
+        <br>
+        <span id="sss"ng-bind="message.text"></span>
+    </li>
+  </ul>
+  <div class="bs-docs-sidebar hidden-print affix">
+    <a ng-repeat="user in users" class="list-group-item" | filter:search>
+      <h4 class="list-group-item-heading" ng-bind="user.username"></h4>
+      <p class="list-group-item-text pull-right small" ng-bind="user.roles"></p>
+      <button type="button" class="btn btn-default" ng-click="addFriend(user.email)"><span class="glyphicon glyphicon-plus"></span></button>
+      <p class="list-group-item-text" ng-bind="user.email"></p>
+    </a>
+  </div>
+</section>
